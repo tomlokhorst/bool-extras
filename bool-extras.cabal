@@ -1,0 +1,18 @@
+name:                bool-extras
+version:             0.1.0
+synopsis:            A fold function for Bool
+description:         The `bool' function allows folding over boolean values.
+                     .
+                     This is comparable to the `maybe' or `either' functions
+                     on their respective types.
+license:             BSD3
+license-file:        LICENSE
+author:              Tom Lokhorst
+maintainer:          Tom Lokhorst <tom@lokhorst.eu>
+stability:           Stable
+category:            Data
+build-type:          Simple
+hs-source-dirs:      src
+exposed-modules:     Data.Bool.Extras
+build-depends:       base >= 3 && <= 4
+
