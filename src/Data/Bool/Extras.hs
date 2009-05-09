@@ -10,6 +10,10 @@ module Data.Bool.Extras
 import Data.Bool
 import Data.Monoid
 
+-- Straightforward implementation (without the weird catamorphism stuff):
+-- bool x _ True  = x
+-- bool _ y False = y
+
 -- | Defines the fold over a boolean data type.
 -- Comparable to the `maybe' or `either' functions.
 bool :: a -> a -> Bool -> a
