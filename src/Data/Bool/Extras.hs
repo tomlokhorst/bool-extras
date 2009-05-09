@@ -4,6 +4,7 @@ module Data.Bool.Extras
   , boolM
   , BoolAlgebra
   , cata
+  , ana
   ) where
 
 import Data.Bool
@@ -28,4 +29,8 @@ type BoolAlgebra r = (r, r)
 cata :: BoolAlgebra r -> Bool -> r
 cata (x, _) False = x
 cata (_, y) True  = y
+
+-- | Anamorphism for booleans.
+ana :: (b -> Bool) -> b -> Bool
+ana = id
 
