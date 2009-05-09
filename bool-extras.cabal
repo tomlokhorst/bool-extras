@@ -5,6 +5,16 @@ description:         The `bool' function allows folding over boolean values.
                      .
                      This is comparable to the `maybe' or `either' functions
                      on their respective types.
+                     .
+                     The `bool' function is a replacement for the build-in
+                     @if then else@-syntax. However since it is a function it
+                     can be partially applied and passed around to higher order
+                     functions, like so:
+                     .
+                     > ghci> :m + Data.Bool.Extras
+                     > ghci> let yesOrNo = bool "yes" "no"
+                     > ghci> map yesOrNo [True, False, True]
+                     > ["yes", "no", "yes"]
 license:             BSD3
 license-file:        LICENSE
 author:              Erik Hesselink,
