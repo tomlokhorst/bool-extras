@@ -1,6 +1,12 @@
+-- | This module provides some convenient functions for dealing with Booleans.
+-- 
+-- The most important one being 'bool', a function that can be used in place of
+-- the build-in @if then else@-syntax.
 module Data.Bool.Extras
-  ( module Data.Bool
-  , bool
+  (
+  -- * Main function
+    bool
+  -- * Other functions
   , boolM
   , BoolAlgebra
   , cata
