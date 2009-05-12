@@ -19,56 +19,58 @@ module Data.Bool.Extras
   , ana
   ) where
 
-import Data.Bool
-import Data.Monoid
 import Control.Arrow
 import Control.Category (Category)
 import qualified Control.Category as Cat
+import Control.Monad
+import Data.Bool
+import Data.Monoid
 
--- | Defines the fold over a boolean data type.
+-- | Defines the fold over a boolean value.
 -- 
 -- Comparable to the `maybe' or `either' functions.
 bool :: a -> a -> Bool -> a
-bool x _ True  = x
-bool _ y False = y
--- Less straightforward implementation:
--- bool = flip (curry cata)
+bool x _ False = x
+bool _ y True  = y
+-- Expressed in terms of `cata':
+-- bool = curry cata
+
 
 -- | Boolean operation for monoids.
 -- 
 -- Returns its first argument when applied to `True',
 -- returns `mempty' when applied to `False'.
 mwhen :: (Monoid a) => a -> Bool -> a
-mwhen x True  = x
-mwhen _ False = mempty
+mwhen = bool mempty
 
 -- | Boolean operation for arrows.
 -- 
 -- Returns its first argument when applied to `True',
 -- returns `returnA' when applied to `False'.
 whenA :: Arrow a => a b b -> Bool -> a b b
-whenA a True  = a
-whenA _ False = returnA
+whenA = bool returnA
 
 -- | Boolean operation for categories.
 -- 
 -- Returns its first argument when applied to `True',
--- returns `Control.Category.id' when applied to `False'.
+-- returns `Cat.id' when applied to `False'.
 whenC :: Category cat => cat b b -> Bool -> cat b b
-whenC c True  = c
-whenC _ False = Cat.id
+whenC = bool Cat.id
 
 -- | Boolean operation for monads.
 -- 
 -- Returns its first argument when applied to `True',
--- returns `Control.Category.id' when applied to `False'.
+-- returns `Cat.id' when applied to `False'.
 --
--- `Control.Monad.when' can be expressed in terms of `whenM', like so:
+-- `when' can be expressed in terms of `whenM', like so:
 -- 
--- > when :: Monad m => Bool -> m () -> m()
+-- > when :: Monad m => Bool -> m () -> m ()
 -- > when b m = (const m `whenM` b) ()
 whenM :: Monad m => (b -> m b) -> Bool -> (b -> m b)
-whenM m = runKleisli . whenC (Kleisli m)
+whenM = bool return
+-- Alternative implementation using Kleisli arrows:
+-- whenM m = runKleisli . whenC (Kleisli m)
+
 
 -- | Algebra for Bool data type.
 -- 
@@ -83,5 +85,5 @@ cata (_, y) True  = y
 
 -- | Anamorphism for booleans.
 ana :: (b -> Bool) -> b -> Bool
-ana = id
+ana f b = f b
 

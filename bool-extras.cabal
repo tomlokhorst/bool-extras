@@ -1,5 +1,5 @@
 name:                bool-extras
-version:             0.1.0
+version:             0.2.0
 synopsis:            A fold function for Bool
 description:         The `bool' function allows folding over boolean values.
                      .
