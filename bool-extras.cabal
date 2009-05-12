@@ -7,7 +7,7 @@ description:         The `bool' function allows folding over boolean values.
                      on their respective types.
                      .
                      The `bool' function is a replacement for the build-in
-                     @if then else@-syntax. However since it is a function it
+                     @if then else@-syntax. However, since it is a function, it
                      can be partially applied and passed around to higher order
                      functions, like so:
                      .

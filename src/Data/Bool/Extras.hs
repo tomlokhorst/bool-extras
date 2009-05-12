@@ -57,16 +57,16 @@ whenA = bool returnA
 -- | Boolean operation for categories.
 -- 
 -- Returns its first argument when applied to `True',
--- returns `Cat.id' when applied to `False'.
+-- returns @Control.Category.@`Cat.id' when applied to `False'.
 whenC :: Category cat => cat b b -> Bool -> cat b b
 whenC = bool Cat.id
 
 -- | Boolean operation for monads.
 -- 
 -- Returns its first argument when applied to `True',
--- returns `Cat.id' when applied to `False'.
+-- returns @Control.Category.@`Cat.id' when applied to `False'.
 --
--- `when' can be expressed in terms of `whenM', like so:
+-- @Control.Monad.@`when' can be expressed in terms of `whenM', like so:
 -- 
 -- > when :: Monad m => Bool -> m () -> m ()
 -- > when b m = (const m `whenM` b) ()
