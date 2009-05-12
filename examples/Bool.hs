@@ -3,7 +3,7 @@ module Bool where
 import Data.Bool.Extras
 
 yesOrNo :: Bool -> String
-yesOrNo = bool "yes" "no"
+yesOrNo = bool "no" "yes"
 
 main = putStrLn (yesOrNo True)
 

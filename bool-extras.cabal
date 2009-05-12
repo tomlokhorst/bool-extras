@@ -12,9 +12,13 @@ description:         The `bool' function allows folding over boolean values.
                      functions, like so:
                      .
                      > ghci> :m + Data.Bool.Extras
-                     > ghci> let yesOrNo = bool "yes" "no"
+                     > ghci> let yesOrNo = bool "no" "yes"
                      > ghci> map yesOrNo [True, False, True]
                      > ["yes", "no", "yes"]
+                     .
+                     Note that the arguments to `bool' are in the opposite order
+                     of the @if then else@-syntax; First the false value, then
+                     the true value, and finally the boolean.
 license:             BSD3
 license-file:        LICENSE
 author:              Erik Hesselink,
@@ -27,5 +31,5 @@ category:            Data
 build-type:          Simple
 hs-source-dirs:      src
 exposed-modules:     Data.Bool.Extras
-build-depends:       base >= 3 && <= 4
+build-depends:       base
 

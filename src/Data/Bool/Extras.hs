@@ -27,8 +27,12 @@ import Data.Bool
 import Data.Monoid
 
 -- | Defines the fold over a boolean value.
+--
+-- Returns its first argument when applied to `False',
+-- returns its second argument when applied to `True'.
 -- 
--- Comparable to the `maybe' or `either' functions.
+-- Comparable to the `maybe' or `either' functions for their respective data
+-- types.
 bool :: a -> a -> Bool -> a
 bool x _ False = x
 bool _ y True  = y
