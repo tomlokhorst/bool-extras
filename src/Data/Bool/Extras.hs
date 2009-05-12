@@ -6,10 +6,14 @@ module Data.Bool.Extras
   (
   -- * Main function
     bool
+
   -- * Other functions
-  , boolM
-  , boolA
-  , boolC
+  , mwhen
+  , whenA
+  , whenC
+  , whenM
+
+  -- * Morphisms
   , BoolAlgebra
   , cata
   , ana
@@ -22,33 +26,54 @@ import Control.Category (Category)
 import qualified Control.Category as Cat
 
 -- | Defines the fold over a boolean data type.
+-- 
 -- Comparable to the `maybe' or `either' functions.
 bool :: a -> a -> Bool -> a
 bool x _ True  = x
 bool _ y False = y
+-- Less straightforward implementation:
+-- bool = flip (curry cata)
 
 -- | Boolean operation for monoids.
--- Behaves like `id` when applied to `True`,
--- returns `mempty` for when applied to `False`.
-boolM :: (Monoid a) => a -> Bool -> a
-boolM x True  = x
-boolM _ False = mempty
+-- 
+-- Returns its first argument when applied to `True',
+-- returns `mempty' when applied to `False'.
+mwhen :: (Monoid a) => a -> Bool -> a
+mwhen x True  = x
+mwhen _ False = mempty
 
 -- | Boolean operation for arrows.
--- Behaves like `id` when applied to `True`,
--- return `returnA` when applied to `False`.
-boolA :: Arrow a => a b b -> Bool -> a b b
-boolA a True  = a
-boolA _ False = returnA
+-- 
+-- Returns its first argument when applied to `True',
+-- returns `returnA' when applied to `False'.
+whenA :: Arrow a => a b b -> Bool -> a b b
+whenA a True  = a
+whenA _ False = returnA
 
 -- | Boolean operation for categories.
--- Behaves like `id` when applied to `True`,
--- return `Cat.id` when applied to `False`.
-boolC :: Category cat => cat b b -> Bool -> cat b b
-boolC c True  = c
-boolC _ False = Cat.id
+-- 
+-- Returns its first argument when applied to `True',
+-- returns `Control.Category.id' when applied to `False'.
+whenC :: Category cat => cat b b -> Bool -> cat b b
+whenC c True  = c
+whenC _ False = Cat.id
+
+-- | Boolean operation for monads.
+-- 
+-- Returns its first argument when applied to `True',
+-- returns `Control.Category.id' when applied to `False'.
+--
+-- `Control.Monad.when' can be expressed in terms of `whenM', like so:
+-- 
+-- > when :: Monad m => Bool -> m () -> m()
+-- > when b m = (const m `whenM` b) ()
+whenM :: Monad m => (b -> m b) -> Bool -> (b -> m b)
+whenM m = runKleisli . whenC (Kleisli m)
 
 -- | Algebra for Bool data type.
+-- 
+-- The first field of the pair represents the `False' value,
+-- the second field represents the `True' value.
 type BoolAlgebra r = (r, r)
 
 -- | Catamorphism for booleans.
