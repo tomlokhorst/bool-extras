@@ -18,6 +18,7 @@ description:         The `bool' function allows folding over boolean values.
 license:             BSD3
 license-file:        LICENSE
 author:              Erik Hesselink,
+                     Jeroen Leeuwestein,
                      Tom Lokhorst,
                      Sebastiaan Visser
 maintainer:          Tom Lokhorst <tom@lokhorst.eu>
