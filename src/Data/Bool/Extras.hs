@@ -8,6 +8,8 @@ module Data.Bool.Extras
     bool
   -- * Other functions
   , boolM
+  , boolA
+  , boolC
   , BoolAlgebra
   , cata
   , ana
