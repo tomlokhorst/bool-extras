@@ -75,6 +75,16 @@ whenM = bool return
 -- Alternative implementation using Kleisli arrows:
 -- whenM m = runKleisli . whenC (Kleisli m)
 
+{-
+-- Functions that are also possible, but we haven't found an explicit need for
+
+whenP :: MonadPlus m => a -> Bool -> m a
+whenP = bool mzero . return
+
+(<?>) :: Applicative f => (a -> f a) -> Bool -> (a -> f a)
+(<?>) = bool pure
+-}
+
 
 -- | Algebra for Bool data type.
 -- 
