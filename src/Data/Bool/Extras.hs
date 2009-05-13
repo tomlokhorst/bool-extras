@@ -33,6 +33,7 @@ import Data.Monoid
 -- 
 -- Comparable to the `maybe' or `either' functions for their respective data
 -- types.
+{-# INLINE bool #-}
 bool :: a -> a -> Bool -> a
 bool x _ False = x
 bool _ y True  = y
