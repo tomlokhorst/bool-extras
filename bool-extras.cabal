@@ -29,6 +29,7 @@ maintainer:          Tom Lokhorst <tom@lokhorst.eu>
 stability:           Stable
 category:            Data
 build-type:          Simple
+extra-source-files:  examples/*.hs
 hs-source-dirs:      src
 exposed-modules:     Data.Bool.Extras
 build-depends:       base
