@@ -1,5 +1,5 @@
 name:                bool-extras
-version:             0.2.1
+version:             0.3.0
 synopsis:            A fold function for Bool
 description:         The `bool' function allows folding over boolean values.
                      .
@@ -26,6 +26,7 @@ author:              Erik Hesselink,
                      Tom Lokhorst,
                      Sebastiaan Visser
 maintainer:          Tom Lokhorst <tom@lokhorst.eu>
+homepage:            http://tom.lokhorst.eu/bool-extras
 stability:           Stable
 category:            Data
 build-type:          Simple
@@ -33,5 +34,5 @@ cabal-version:       >= 1.6
 extra-source-files:  examples/*.hs
 hs-source-dirs:      src
 exposed-modules:     Data.Bool.Extras
-build-depends:       base
+build-depends:       base >= 3 && < 5
 

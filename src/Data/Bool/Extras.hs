@@ -48,30 +48,37 @@ bool _ y True  = y
 mwhen :: (Monoid a) => a -> Bool -> a
 mwhen = bool mempty
 
+-- | Boolean operation for monads, with a monoid default.
+-- 
+-- Return its first argument when applied to `True',
+-- returns `return mempty' when applied to `False'.
+mwhenM :: (Monad m, Monoid a) => m a -> Bool -> m a
+mwhenM = bool (return mempty)
+
 -- | Boolean operation for arrows.
 -- 
 -- Returns its first argument when applied to `True',
 -- returns `returnA' when applied to `False'.
-whenA :: Arrow a => a b b -> Bool -> a b b
+whenA :: (Arrow a) => a b b -> Bool -> a b b
 whenA = bool returnA
 
 -- | Boolean operation for categories.
 -- 
 -- Returns its first argument when applied to `True',
 -- returns @Control.Category.@`Cat.id' when applied to `False'.
-whenC :: Category cat => cat b b -> Bool -> cat b b
+whenC :: (Category cat) => cat a a -> Bool -> cat a a
 whenC = bool Cat.id
 
 -- | Boolean operation for monads.
 -- 
 -- Returns its first argument when applied to `True',
--- returns @Control.Category.@`Cat.id' when applied to `False'.
+-- returns `return' when applied to `False'.
 --
 -- @Control.Monad.@`when' can be expressed in terms of `whenM', like so:
 -- 
 -- > when :: Monad m => Bool -> m () -> m ()
 -- > when b m = (const m `whenM` b) ()
-whenM :: Monad m => (b -> m b) -> Bool -> (b -> m b)
+whenM :: (Monad m) => (a -> m a) -> Bool -> (a -> m a)
 whenM = bool return
 -- Alternative implementation using Kleisli arrows:
 -- whenM m = runKleisli . whenC (Kleisli m)
@@ -79,10 +86,10 @@ whenM = bool return
 {-
 -- Functions that are also possible, but we haven't found an explicit need for
 
-whenP :: MonadPlus m => a -> Bool -> m a
+whenP :: (MonadPlus m) => a -> Bool -> m a
 whenP = bool mzero . return
 
-(<?>) :: Applicative f => (a -> f a) -> Bool -> (a -> f a)
+(<?>) :: (Applicative f) => (a -> f a) -> Bool -> (a -> f a)
 (<?>) = bool pure
 -}
 
