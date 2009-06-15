@@ -9,6 +9,7 @@ module Data.Bool.Extras
 
   -- * Other functions
   , mwhen
+  , mwhenM
   , whenA
   , whenC
   , whenM
