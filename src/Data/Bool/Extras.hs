@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- | This module provides some convenient functions for dealing with Booleans.
 -- 
 -- The most important one being 'bool', a function that can be used in place of
@@ -27,6 +28,7 @@ import Control.Monad
 import Data.Bool
 import Data.Monoid
 
+#if !MIN_VERSION_base(4,7,0)
 -- | Defines the fold over a boolean value.
 --
 -- Returns its first argument when applied to `False',
@@ -40,7 +42,7 @@ bool x _ False = x
 bool _ y True  = y
 -- Expressed in terms of `cata':
 -- bool = curry cata
-
+#endif
 
 -- | Boolean operation for monoids.
 -- 
